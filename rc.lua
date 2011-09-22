@@ -8,6 +8,8 @@ require("beautiful")
 require("vicious")
 -- Notification library
 require("naughty")
+-- load the "run or raise" function
+require("aweror")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
@@ -198,6 +200,11 @@ root.buttons(awful.util.table.join(
 -- }}}
 
 -- {{{ Key bindings
+
+-- run or raise--{{{
+--globalkeys = awful.tuil.table.join(globalkeys, aweror.genkeys(mondkey))
+--}}}
+
 globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
@@ -215,6 +222,15 @@ globalkeys = awful.util.table.join(
         end),
     awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
 
+--	-- 截图 {{{3
+--	awful.key({ }, "Print", function ()
+--    -- 截图：全屏
+--    awful.util.spawn("zsh -c 'cd ~/tmpfs\nscrot\n'")
+--    os.execute("sleep .5")
+--    naughty.notify({title="截图", text="全屏截图已保存。"})
+--  end),
+--	--}}}
+--
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end),
@@ -327,6 +343,19 @@ root.keys(globalkeys)
 -- }}}
 
 -- {{{ Rules
+floating_apps = {
+  class = {
+    'MPlayer', 'Flashplayer', 'Gnome-mplayer', 'Totem',
+    'Eog', 'feh', 'Display', 'gimp',
+    'Screenkey', 'TempTerm',
+  },
+  name = {
+    '文件传输', 'Firefox Preferences',
+  },
+  instance = {
+    'QQ.exe', 'Toplevel', -- 火狐的对话框
+  },
+}
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
@@ -341,10 +370,24 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
+	-- Start windows as slave
+	{ rule = { },
+	properties = { },
+	callback = awful.client.setslave },
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
     --   properties = { tag = tags[1][2] } },
 }
+
+for k, v in pairs(floating_apps) do
+  for _, vv in ipairs(v) do
+    table.insert(awful.rules.rules, {
+      rule = { [k] = vv },
+      properties = { floating = true },
+    })
+  end
+end
+
 -- }}}
 
 -- {{{ Signals
