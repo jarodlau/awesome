@@ -4,6 +4,8 @@ require("awful.autofocus")
 require("awful.rules")
 -- Theme handling library
 require("beautiful")
+-- Vicious-statsbar show date something
+require("vicious")
 -- Notification library
 require("naughty")
 
@@ -71,7 +73,9 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 -- {{{ Wibox
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" })
-
+myclock = timer({ timeout = 1 })
+myclock:add_signal("timeout", function() mytextclock.text = os.date(" %Y年%m月%d日 %H:%M:%S %A ") end)
+myclock:start()
 -- Create a systray
 mysystray = widget({ type = "systray" })
 
