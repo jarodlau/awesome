@@ -90,15 +90,18 @@ vicious.register(netwidget, vicious.widgets.net, '↓<span color="#5798d9">${wla
 memwidget = widget({ type = "textbox" })
 vicious.register(memwidget, vicious.widgets.mem, 'Mem <span color="#90ee90">$1%</span>', 3)
 
--- Initialize widget
-cpuwidget = awful.widget.graph()
--- Graph properties
-cpuwidget:set_width(50)
-cpuwidget:set_background_color("#494B4F")
-cpuwidget:set_color("#FF5656")
-cpuwidget:set_gradient_colors({ "#FF5656", "#88A175", "#AECF96" })
--- Register widget
-vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
+cpuwidget = widget({ type = "textbox" })
+vicious.register(cpuwidget, vicious.widgets.cpu, 'Cpu  <span color="#90ee90">$1%</span>')
+
+---- Initialize widget
+--cpuwidget = awful.widget.graph()
+---- Graph properties
+--cpuwidget:set_width(50)
+--cpuwidget:set_background_color("#494B4F")
+--cpuwidget:set_color("#FF5656")
+--cpuwidget:set_gradient_colors({ "#FF5656", "#88A175", "#AECF96" })
+---- Register widget
+--vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
 
 -- }}}
 
