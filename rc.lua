@@ -9,11 +9,11 @@ require("naughty")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
-beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "xterm"
-editor = os.getenv("EDITOR") or "nano"
+terminal = "urxvt"
+editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
@@ -46,7 +46,7 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }, s, layouts[1])
+    tags[s] = awful.tag({ "one", "2www", "3irc", 4, 5, 6, 7, 8, 9 }, s, layouts[2])
 end
 -- }}}
 
@@ -346,3 +346,25 @@ end)
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
+
+-- Autorun programs--{{{
+autorun = true
+autorunApps = 
+{
+	-- sleep 60
+	--"sleep 60"
+	-- start up ibusdaemon"
+	"ibus-daemon -d -x -r -n awesome",
+	-- start up my ssh tunnel"
+	"sshpass -p 0756543 ssh -nf -CgND 7070 tm-0003891@temp1.ssh4gfw.com"
+	-- start up netmanager
+	--"nm-applet"
+}
+if autorun then
+	for app = 1, #autorunApps do
+		awful.util.spawn(autorunApps[app])
+	end
+end
+--}}}
+
+-- vim: fdm=marker fdl=0 sts=4 ai
