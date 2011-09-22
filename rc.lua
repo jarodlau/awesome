@@ -10,6 +10,8 @@ require("vicious")
 require("naughty")
 -- load the "run or raise" function
 require("aweror")
+-- load menu
+require("menu")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
@@ -59,11 +61,12 @@ end
 myawesomemenu = {
    { "manual", terminal .. " -e man awesome" },
    { "edit config", editor_cmd .. " " .. awful.util.getdir("config") .. "/rc.lua" },
-   { "restart", awesome.restart },
+      { "restart", awesome.restart },
    { "quit", awesome.quit }
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
+									{ "apps(&A))", xdgmenu},
                                     { "open terminal", terminal }
                                   }
                         })
