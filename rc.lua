@@ -79,6 +79,27 @@ myclock:start()
 -- Create a systray
 mysystray = widget({ type = "systray" })
 
+
+-- {{{2 vicious widgets
+netwidget = widget({ type = "textbox" })
+vicious.register(netwidget, vicious.widgets.net, '↓<span color="#5798d9">${wlan0 down_kb}</span> ↑<span color="#c2ba62">${wlan0 up_kb}</span> ', 2)
+
+
+memwidget = widget({ type = "textbox" })
+vicious.register(memwidget, vicious.widgets.mem, 'Mem <span color="#90ee90">$1%</span>', 3)
+
+-- Initialize widget
+cpuwidget = awful.widget.graph()
+-- Graph properties
+cpuwidget:set_width(50)
+cpuwidget:set_background_color("#494B4F")
+cpuwidget:set_color("#FF5656")
+cpuwidget:set_gradient_colors({ "#FF5656", "#88A175", "#AECF96" })
+-- Register widget
+vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
+
+-- }}}
+
 -- Create a wibox for each screen and add it
 mywibox = {}
 mypromptbox = {}
@@ -143,8 +164,8 @@ for s = 1, screen.count() do
                                               return awful.widget.tasklist.label.currenttags(c, s)
                                           end, mytasklist.buttons)
 
-    -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s })
+    -- Create the wibox--change the height
+    mywibox[s] = awful.wibox({ position = "top", height = "18", screen = s })
     -- Add widgets to the wibox - order matters
     mywibox[s].widgets = {
         {
@@ -156,6 +177,12 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         s == 1 and mysystray or nil,
+		--netwidget
+		netwidget,
+		--memwidget
+		memwidget,
+		--cpuwidget
+		cpuwidget,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
