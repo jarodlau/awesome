@@ -1,3 +1,27 @@
 my awesome config
 
+编辑 /usr/share/xsessions/Awesome.desktop 
+[Desktop Entry]
+Encoding=UTF-8
+Name=Awesome
+Comment=Awesome window manager
+Exec=/home/jarodlau/.config/awesome/awesome-start.sh
+Icon=
+Type=Application
+
+然后在~/.config/awesome/中建立一个awesome-start.sh文件,并且chmod 755 awesome-start.sh
+如下
+
+#! /bin/bash
+
+mpd &
+mpc random on &
+ibus-daemon -d -x -r -n awesome
+#xmodmap $HOME/.Xmodmap
+urxvtd -q -o -f &
+#xscreensaver &
+#kdeinit4
+exec /usr/bin/awesome
+
+这样就解决了ibus启动的问题
 

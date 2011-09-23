@@ -107,7 +107,7 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
         end
     end, 10)
 	
----- Initialize widget
+---- cpubar with color--{{{
 --cpuwidget = awful.widget.graph()
 ---- Graph properties
 --cpuwidget:set_width(50)
@@ -116,7 +116,7 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
 --cpuwidget:set_gradient_colors({ "#FF5656", "#88A175", "#AECF96" })
 ---- Register widget
 --vicious.register(cpuwidget, vicious.widgets.cpu, "$1")
-
+--}}}
 -- }}}
 
 -- Create a wibox for each screen and add it
@@ -290,15 +290,15 @@ globalkeys = awful.util.table.join(
                   awful.util.getdir("cache") .. "/history_eval")
               end),
 -- music --{{{
-  awful.key({ modkey, }, "Up", function () awful.util.spawn("amixer -q sset Master 10%+ unmute") end),
-  awful.key({ modkey, }, "Down", function () awful.util.spawn("amixer -q sset Master 10%- unmute") end),
+  awful.key({ modkey, }, "Up", function () awful.util.spawn("amixer -D pulse set Master 5%+ unmute") end),
+  awful.key({ modkey, }, "Down", function () awful.util.spawn("amixer -D pulse set Master 5%- unmute") end),
   awful.key({}, "XF86AudioPlay", function () awful.util.spawn("mpc toggle") end),
   awful.key({}, "XF86AudioStop", function () awful.util.spawn("mpc stop") end),
   awful.key({}, "XF86AudioPrev", function () awful.util.spawn("mpc prev") end),
   awful.key({}, "XF86AudioNext", function () awful.util.spawn("mpc next") end),
-  awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer -q sset Master toggle") end),
-  awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -q sset Master 10%- unmute") end),
-  awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -q sset Master 10%+ unmute") end)
+  awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer -D pulse set Master toggle") end),
+  awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -D pulse set Master 5%- unmute") end),
+  awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -D pulse set Master 5%+ unmute") end)
 --}}}
 )
 
@@ -457,7 +457,7 @@ autorunApps =
 	-- sleep 60
 	--"sleep 60"
 	-- start up ibusdaemon"
-	"ibus-daemon -d -x -r -n awesome",
+	--"ibus-daemon -d -x -r -n awesome",
 	-- start up my ssh tunnel"
 	"sshpass -p 0756543 ssh -nf -CgND 7070 tm-0003891@temp1.ssh4gfw.com"
 	-- start up netmanager
