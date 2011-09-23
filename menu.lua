@@ -33,6 +33,7 @@
      {"Swell Foop", "swell-foop"},
      {"Tali", "gtali"},
      {"Tetravex", "gnotravex"},
+     {"Tux Racer", "tuxracer"},
  }
 
  menud334dfcea59127bedfcdbe0a3ee7f494 = {     {"Blender", "blender"},
@@ -49,6 +50,7 @@
      {"Epiphany", "epiphany "},
      {"Epiphany Web Bookmarks", "epiphany --bookmarks-editor"},
      {"Firefox", "firefox "},
+     {"Opera", "/usr/bin/opera "},
      {"Remote Desktop Viewer", "vinagre "},
      {"Zenmap", "zenmap "},
      {"Zenmap (as root)", "/usr/share/zenmap/su-to-zenmap.sh "},
@@ -70,6 +72,7 @@
      {"IBus Preferences", "ibus-setup"},
      {"NVIDIA X Server Settings", "/usr/bin/nvidia-settings"},
      {"Openbox Configuration Manager", "obconf "},
+     {"Opera Widget Manager", "/usr/bin/opera-widget-manager"},
      {"Panel tint2", "tint2conf"},
  }
 
