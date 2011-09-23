@@ -91,10 +91,10 @@ vicious.register(netwidget, vicious.widgets.net, '↓<span color="#5798d9">${wla
 
 
 memwidget = widget({ type = "textbox" })
-vicious.register(memwidget, vicious.widgets.mem, 'Mem <span color="#90ee90">$1%</span>', 3)
+vicious.register(memwidget, vicious.widgets.mem, 'MEM <span color="#90ee90">$1%</span>', 3)
 
 cpuwidget = widget({ type = "textbox" })
-vicious.register(cpuwidget, vicious.widgets.cpu, 'Cpu  <span color="#90ee90">$1%</span>')
+vicious.register(cpuwidget, vicious.widgets.cpu, 'CPU <span color="#90ee90">$1%</span>')
 
 mpdwidget = widget({ type = "textbox" })
 -- Register widget
@@ -196,15 +196,15 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         s == 1 and mysystray or nil,
+		--mpdwidget
+		mpdwidget,
 		--netwidget
 		netwidget,
 		--memwidget
 		memwidget,
 		--cpuwidget
 		cpuwidget,
-		--mpdwidget
-		mpdwidget,
-        mytasklist[s],
+		mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
 end
