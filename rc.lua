@@ -96,6 +96,17 @@ vicious.register(memwidget, vicious.widgets.mem, 'Mem <span color="#90ee90">$1%<
 cpuwidget = widget({ type = "textbox" })
 vicious.register(cpuwidget, vicious.widgets.cpu, 'Cpu  <span color="#90ee90">$1%</span>')
 
+mpdwidget = widget({ type = "textbox" })
+-- Register widget
+vicious.register(mpdwidget, vicious.widgets.mpd,
+    function (widget, args)
+        if args["{state}"] == "Stop" then 
+            return " - "
+        else 
+            return args["{Artist}"]..' - '.. args["{Title}"]
+        end
+    end, 10)
+	
 ---- Initialize widget
 --cpuwidget = awful.widget.graph()
 ---- Graph properties
@@ -191,6 +202,8 @@ for s = 1, screen.count() do
 		memwidget,
 		--cpuwidget
 		cpuwidget,
+		--mpdwidget
+		mpdwidget,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
