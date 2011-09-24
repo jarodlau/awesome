@@ -1,6 +1,6 @@
 #! /bin/bash
 
-xcompmgr &
+#xcompmgr &
 # music daemon
 mpd &
 # random mpc play
