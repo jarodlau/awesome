@@ -18,7 +18,7 @@ require("menu")
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminal = "urxvtc"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -52,7 +52,8 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "one", "2www", "3irc", 4, 5, 6, 7, 8, 9 }, s, layouts[2])
+    tags[s] = awful.tag({ "1one", "2www", "3irc", 4, 5, 6, 7, 8, 9 }, s, 
+	layouts[2])
 end
 -- }}}
 
@@ -78,9 +79,9 @@ mylauncher = awful.widget.launcher({ image = image(beautiful.awesome_icon),
 -- {{{ Wibox
 -- Create a textclock widget
 mytextclock = awful.widget.textclock({ align = "right" })
-myclock = timer({ timeout = 1 })
-myclock:add_signal("timeout", function() mytextclock.text = os.date(" %Y年%m月%d日 %H:%M:%S %A ") end)
-myclock:start()
+--myclock = timer({ timeout = 1 })
+--myclock:add_signal("timeout", function() mytextclock.text = os.date(" %Y %m %d %H:%M:%S %A ") end)
+--myclock:start()
 -- Create a systray
 mysystray = widget({ type = "systray" })
 
@@ -91,10 +92,10 @@ vicious.register(netwidget, vicious.widgets.net, '↓<span color="#5798d9">${wla
 
 
 memwidget = widget({ type = "textbox" })
-vicious.register(memwidget, vicious.widgets.mem, 'MEM <span color="#90ee90">$1%</span>', 3)
+vicious.register(memwidget, vicious.widgets.mem, 'mem:<span color="#90ee90">$1%</span>', 3)
 
 cpuwidget = widget({ type = "textbox" })
-vicious.register(cpuwidget, vicious.widgets.cpu, 'CPU <span color="#90ee90">$1%</span>')
+vicious.register(cpuwidget, vicious.widgets.cpu, 'cpu:<span color="#90ee90">$1%</span>')
 
 mpdwidget = widget({ type = "textbox" })
 -- Register widget
@@ -106,8 +107,22 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
             return args["{Artist}"]..' - '.. args["{Title}"]
         end
     end, 10)
-	
----- cpubar with color--{{{
+
+--- {{{ Battery state
+-- Widget icon
+-- baticon = widget({ type = "imagebox", name = "baticon" })
+-- baticon.image = image(beautiful.widget_bat)
+--batwidget = widget({ type = "textbox" })
+--vicious.register(batwidget, vicious.widgets.bat, "<span foreground='orange'>bat: </span><span foreground='green'>$1$2%</span>", 60, "BAT0")
+-- }}}
+
+-- {{{ Volume widget
+volwidget = widget({ type = "textbox" })
+vicious.register(volwidget, vicious.widgets.volume, "<span foreground='#5789d9'>vol: </span><span foreground='#90ee90'>$1%</span>", 1, 'Master -c0')
+-- }}}
+
+
+-- --- cpubar with color--{{{
 --cpuwidget = awful.widget.graph()
 ---- Graph properties
 --cpuwidget:set_width(50)
@@ -197,6 +212,7 @@ for s = 1, screen.count() do
         mytextclock,
         s == 1 and mysystray or nil,
 		--mpdwidget
+		volwidget,
 		mpdwidget,
 		--netwidget
 		netwidget,
@@ -204,6 +220,7 @@ for s = 1, screen.count() do
 		memwidget,
 		--cpuwidget
 		cpuwidget,
+		--batwidget,
 		mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
@@ -240,7 +257,8 @@ globalkeys = awful.util.table.join(
             if client.focus then client.focus:raise() end
         end),
     awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
-
+	-- Print Screen
+	awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end),
 --	-- 截图 {{{3
 --	awful.key({ }, "Print", function ()
 --    -- 截图：全屏
@@ -465,7 +483,7 @@ autorunApps =
 	-- start up ibusdaemon"
 	--"ibus-daemon -d -x -r -n awesome",
 	-- start up my ssh tunnel"
-	"sshpass -p 0756543 ssh -nf -CgND 7070 tm-0003891@temp1.ssh4gfw.com"
+	"sshpass -p ilyjerry ssh -2nf -CgND 7070 tm-0004208@temp1.ssh4gfw.com"
 	-- start up netmanager
 	--"nm-applet"
 }
