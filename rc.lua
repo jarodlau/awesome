@@ -10,7 +10,7 @@ require("vicious")
 require("naughty")
 -- load the "run or raise" function
 require("aweror")
--- load menu
+-- load menu通过arch-xdg-menu生成菜单
 require("menu")
 
 -- {{{ Variable definitions
@@ -122,6 +122,12 @@ vicious.register(volwidget, vicious.widgets.volume, "<span foreground='#5789d9'>
 -- }}}
 
 
+-- Arch pacman updet--{{{
+pacwidget = widget({type="textbox"})
+vicious.register(pacwidget, vicious.widgets.pkg, "<span color='red'><b> UPDATES: </b></span> $1 ", 1801,"Arch")
+--}}}
+
+
 -- --- cpubar with color--{{{
 --cpuwidget = awful.widget.graph()
 ---- Graph properties
@@ -211,6 +217,8 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         s == 1 and mysystray or nil,
+		--pacwidget
+		pacwidget,
 		--mpdwidget
 		volwidget,
 		mpdwidget,
@@ -394,10 +402,10 @@ floating_apps = {
   class = {
     'MPlayer', 'Flashplayer', 'Gnome-mplayer', 'Totem',
     'Eog', 'feh', 'Display', 'gimp',
-    'Screenkey', 'TempTerm',
+    'Screenkey', 'TempTerm',"Download",
   },
   name = {
-    '文件传输', 'Firefox Preferences',
+    'Downloads', 'Firefox Preferences',
   },
   instance = {
     'QQ.exe', 'Toplevel', -- 火狐的对话框
@@ -415,15 +423,17 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
-    { rule = { class = "gimp" },
-      properties = { floating = true } },
+    { rule = { class = "Gimp" },
+      properties = { floating = true, tag = tags[1][7] } },
+	{ rule = { class = "VirtualBox" },
+      properties = { tag = tags[1][9] } },
 	-- Start windows as slave
 	{ rule = { },
 	properties = { },
 	callback = awful.client.setslave },
     -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
+    { rule = { class = "Firefox" },
+		properties = { tag = tags[1][2] } },
 }
 
 for k, v in pairs(floating_apps) do
