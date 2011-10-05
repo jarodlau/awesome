@@ -124,7 +124,7 @@ vicious.register(volwidget, vicious.widgets.volume, "<span foreground='#5789d9'>
 
 -- Arch pacman updet--{{{
 pacwidget = widget({type="textbox"})
-vicious.register(pacwidget, vicious.widgets.pkg, "<span color='red'><b> UPDATES: </b></span> $1 ", 1801,"Arch")
+vicious.register(pacwidget, vicious.widgets.pkg, "<span color='red'><b> UPDATES: </b></span> $1 ", 60, "Arch")
 --}}}
 
 
@@ -485,23 +485,22 @@ client.add_signal("unfocus", function(c)
 -- }}}
 
 -- Autorun programs--{{{
-autorun = true
-autorunApps = 
-{
-	-- sleep 60
-	--"sleep 60"
-	-- start up ibusdaemon"
-	--"ibus-daemon -d -x -r -n awesome",
-	-- start up my ssh tunnel"
-	"sshpass -p ilyjerry ssh -2nf -CgND 7070 tm-0004208@temp1.ssh4gfw.com"
-	-- start up netmanager
-	--"nm-applet"
-}
-if autorun then
-	for app = 1, #autorunApps do
-		awful.util.spawn(autorunApps[app])
-	end
-end
+--autorun = true
+--autorunApps = 
+--{
+--	-- sleep 60
+--	--"sleep 60"
+--	-- start up ibusdaemon"
+--	--"ibus-daemon -d -x -r -n awesome",
+--	-- start up my ssh tunnel"
+--	-- start up netmanager
+--	--"nm-applet"
+--}
+--if autorun then
+--	for app = 1, #autorunApps do
+--		awful.util.spawn(autorunApps[app])
+--	end
+--end
 --}}}
 
 -- vim: fdm=marker fdl=0 sts=4 ai

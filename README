@@ -25,3 +25,8 @@ exec /usr/bin/awesome
 
 这样就解决了ibus启动的问题
 
+Thu 06 Oct 2011 03:56:41 AM CST
+把ssh tunnel的自启动脚本从rc.lua拿出来
+放在 .alias中
+
+安装 cairo-ubuntu-xcb 在awesome中使用ubuntu的lcd显示补丁.
