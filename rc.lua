@@ -501,6 +501,19 @@ client.add_signal("unfocus", function(c)
 --		awful.util.spawn(autorunApps[app])
 --	end
 --end
+
+--run_once software
+function run_once(prg)
+  awful.util.spawn_with_shell("pgrep -u $USER -x " .. prg .. " || (" .. prg .. ")")
+end
+
+
+run_once("killall ibus-daemon && ibus-daemon -d -x -r")
+run_once("nm-applet")
+run_once("urxvtd -q -o -f")
+run_once("mpd")
+run_once("mpc random on")
+
 --}}}
 
 -- vim: fdm=marker fdl=0 sts=4 ai
