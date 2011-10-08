@@ -9,13 +9,37 @@ require("vicious")
 -- Notification library
 require("naughty")
 -- load the "run or raise" function
-require("aweror")
+--require("aweror")
 -- load menu通过arch-xdg-menu生成菜单
 require("menu")
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+
+-- Private naughty config
+--naughty.config.default_preset.font = "sans 12"
+--naughty.config.default_preset.position = "bottom_right"
+--naughty.config.default_preset.fg = beautiful.fg_focus
+--naughty.config.default_preset.bg = beautiful.bg_focus
+--naughty.config.default_preset.border_color = beautiful.border_focus
+--
+--naughty.config.default_preset.timeout          = 5
+--naughty.config.default_preset.screen           = 1
+--naughty.config.default_preset.position         = "top_right"
+--naughty.config.default_preset.margin           = 4
+--naughty.config.default_preset.height           = 16
+--naughty.config.default_preset.width            = 300
+--naughty.config.default_preset.gap              = 1
+--naughty.config.default_preset.ontop            = true
+--naughty.config.default_preset.font             = beautiful.font or "Verdana 8"
+--naughty.config.default_preset.icon             = nil
+--naughty.config.default_preset.icon_size        = 16
+--naughty.config.default_preset.fg               = beautiful.fg_focus or '#ffffff'
+--naughty.config.default_preset.bg               = beautiful.bg_focus or '#535d6c'
+--naughty.config.presets.normal.border_color     = beautiful.border_focus or '#535d6c'
+--naughty.config.default_preset.border_width     = 1
+--naughty.config.default_preset.hover_timeout    = nil
 
 -- This is used later as the default terminal and editor to run.
 terminal = "urxvtc"
@@ -52,7 +76,7 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "1one", "2www", "3irc", 4, 5, 6, 7, 8, 9 }, s, 
+    tags[s] = awful.tag({ "1one", "2www", "3irc", "4chrome", "5pdf", 6, 7, 8, "9vbox" }, s,
 	layouts[2])
 end
 -- }}}
@@ -265,17 +289,7 @@ globalkeys = awful.util.table.join(
             if client.focus then client.focus:raise() end
         end),
     awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
-	-- Print Screen
-	awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end),
---	-- 截图 {{{3
---	awful.key({ }, "Print", function ()
---    -- 截图：全屏
---    awful.util.spawn("zsh -c 'cd ~/tmpfs\nscrot\n'")
---    os.execute("sleep .5")
---    naughty.notify({title="截图", text="全屏截图已保存。"})
---  end),
---	--}}}
-    -- Layout manipulation
+	 -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end),
     awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
@@ -315,18 +329,62 @@ globalkeys = awful.util.table.join(
                   awful.util.eval, nil,
                   awful.util.getdir("cache") .. "/history_eval")
               end),
--- music --{{{
-  awful.key({ modkey, }, "Up", function () awful.util.spawn("amixer -D pulse set Master 5%+ unmute") end),
-  awful.key({ modkey, }, "Down", function () awful.util.spawn("amixer -D pulse set Master 5%- unmute") end),
-  awful.key({}, "XF86AudioPlay", function () awful.util.spawn("mpc toggle") end),
-  awful.key({}, "XF86AudioStop", function () awful.util.spawn("mpc stop") end),
-  awful.key({}, "XF86AudioPrev", function () awful.util.spawn("mpc prev") end),
-  awful.key({}, "XF86AudioNext", function () awful.util.spawn("mpc next") end),
-  awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer -D pulse set Master toggle") end),
-  awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -D pulse set Master 5%- unmute") end),
-  awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -D pulse set Master 5%+ unmute") end)
---}}}
-)
+
+
+	-- Private global keys
+	--awful.key({ modkey, }, "a", function () awful.util.spawn("xterm -e alsamixer") end),
+    --awful.key({ modkey, }, "b", function () mywibox[mouse.screen].visible = not mywibox[mouse.screen].visible end),
+    awful.key({ modkey, }, "g", function () awful.util.spawn("goldendict") end),
+    awful.key({ modkey, }, "i", function () awful.util.spawn("firefox") end),
+    --awful.key({ modkey, }, "m", function () awful.util.spawn("amixer -q sset Master toggle") end),
+    --awful.key({ modkey, }, "p", function () awful.util.spawn("pidgin") end),
+    --awful.key({ modkey, }, "s", function () awful.util.spawn("xlock -mode blank -dpmsoff 5 -font -misc-fixed-*-*-*-*-20-*-*-*-*-*-*") end),
+    --awful.key({ modkey, }, "t", function () awful.util.spawn("mpc toggle") end),
+    awful.key({ modkey, }, "v", function () awful.util.spawn("virtualbox") end),
+    --awful.key({ modkey, }, "x", function () awful.util.spawn("xterm") end),
+	awful.key({ modkey, }, "p", function () awful.util.spawn("zathura") end),
+    --awful.key({ modkey, }, "Up", function () awful.util.spawn("amixer -q sset Master 10%+ unmute") end),
+    --awful.key({ modkey, }, "Down", function () awful.util.spawn("amixer -q sset Master 10%- unmute") end),
+    --awful.key({ "Mod1" }, "F2", function () awful.util.spawn("gmrun") end),
+    --awful.key({ "Mod1" }, "Tab",
+    --    function ()
+    --        awful.client.focus.history.previous()
+    --        if client.focus then
+    --            client.focus:raise()
+    --        end
+    --    end),
+    awful.key({ "Mod1" }, "Print",
+        function ()
+	awful.util.spawn("scrot -s -e 'mv $f ~/Pictures/Shot/ 2>/dev/null'")
+	os.execute("sleep 0.5")
+	naughty.notify({ title="Screenshot", text="The focused window captured" })
+        end),
+    awful.key({}, "Print",
+        function ()
+	awful.util.spawn("scrot -e 'mv $f ~/Pictures/Shot/ 2>/dev/null'")
+	os.execute("sleep 0.5")
+	naughty.notify({ title="Screenshot", text="Full screen captured" })
+        end),
+	--awful.key({ }, "Print", function () awful.util.spawn("scrot -e 'mv $f ~/screenshots/ 2>/dev/null'") end),
+--	-- 截图
+--	awful.key({ }, "Print", function ()
+--    -- 截图：全屏
+--    awful.util.spawn("zsh -c 'cd ~/tmpfs\nscrot\n'")
+--    os.execute("sleep .5")
+--    naughty.notify({title="截图", text="全屏截图已保存。"})
+--  end),
+	-- music
+	awful.key({ modkey, }, "Up", function () awful.util.spawn("amixer -D pulse set Master 5%+ unmute") end),
+	awful.key({ modkey, }, "Down", function () awful.util.spawn("amixer -D pulse set Master 5%- unmute") end),
+	awful.key({}, "XF86AudioPlay", function () awful.util.spawn("mpc toggle") end),
+	awful.key({}, "XF86AudioStop", function () awful.util.spawn("mpc stop") end),
+	awful.key({}, "XF86AudioPrev", function () awful.util.spawn("mpc prev") end),
+	awful.key({}, "XF86AudioNext", function () awful.util.spawn("mpc next") end),
+	awful.key({}, "XF86AudioMute", function () awful.util.spawn("amixer -D pulse set Master toggle") end),
+	awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("amixer -D pulse set Master 5%- unmute") end),
+	awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer -D pulse set Master 5%+ unmute") end)
+
+	)
 
 clientkeys = awful.util.table.join(
     awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
@@ -346,7 +404,14 @@ clientkeys = awful.util.table.join(
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical   = not c.maximized_vertical
-        end)
+        end),
+	-- Private client keys
+    awful.key({ "Mod1" }, "F3",
+        function (c)
+            c.maximized_horizontal = not c.maximized_horizontal
+            c.maximized_vertical = not c.maximized_vertical
+        end),
+    awful.key({ "Mod1" }, "F4", function (c) c:kill() end)
 )
 
 -- Compute the maximum number of digit we need, limited to 9
@@ -421,12 +486,14 @@ awful.rules.rules = {
                      buttons = clientbuttons } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
-    { rule = { class = "pinentry" },
-      properties = { floating = true } },
     { rule = { class = "Gimp" },
       properties = { floating = true, tag = tags[1][7] } },
 	{ rule = { class = "VirtualBox" },
       properties = { tag = tags[1][9] } },
+	{ rule = { class = "Google-chrome" },
+      properties = { tag = tags[1][4] } },
+	{ rule = { class = "Zathura" },
+      properties = { tag = tags[1][5] } },
 	-- Start windows as slave
 	{ rule = { },
 	properties = { },
