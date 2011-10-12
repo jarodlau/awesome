@@ -355,7 +355,7 @@ globalkeys = awful.util.table.join(
     --    end),
     awful.key({ "Mod1" }, "Print",
         function ()
-	awful.util.spawn("scrot -s -e 'mv $f ~/Pictures/Shot/ 2>/dev/null'")
+	awful.util.spawn("scrot -bs -e 'mv $f ~/Pictures/Shot/ 2>/dev/null'")
 	os.execute("sleep 0.5")
 	naughty.notify({ title="Screenshot", text="The focused window captured" })
         end),
