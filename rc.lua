@@ -76,7 +76,7 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "1one", "2www", "3irc", "4chrome", "5pdf", 6, 7, 8, "9vbox" }, s,
+    tags[s] = awful.tag({ "1one", "2www", "3irc", "4pdf", "5", 6, 7, 8, "9vbox" }, s,
 	layouts[2])
 end
 -- }}}
@@ -411,7 +411,14 @@ clientkeys = awful.util.table.join(
             c.maximized_horizontal = not c.maximized_horizontal
             c.maximized_vertical = not c.maximized_vertical
         end),
-    awful.key({ "Mod1" }, "F4", function (c) c:kill() end)
+	awful.key({ "Mod1" }, "F4", function (c) c:kill() end)
+
+	--awful.key({ modkey }, "Next",  function () awful.client.moveresize( 20,  20, -40, -40) end),
+	--awful.key({ modkey }, "Prior", function () awful.client.moveresize(-20, -20,  40,  40) end),
+	--awful.key({ modkey }, "Down",  function () awful.client.moveresize(  0,  20,   0,   0) end),
+	--awful.key({ modkey }, "Up",    function () awful.client.moveresize(  0, -20,   0,   0) end),
+	--awful.key({ modkey }, "Left",  function () awful.client.moveresize(-20,   0,   0,   0) end),
+	--awful.key({ modkey }, "Right", function () awful.client.moveresize( 20,   0,   0,   0) end)
 )
 
 -- Compute the maximum number of digit we need, limited to 9
@@ -490,10 +497,10 @@ awful.rules.rules = {
       properties = { floating = true, tag = tags[1][7] } },
 	{ rule = { class = "VirtualBox" },
       properties = { tag = tags[1][9] } },
-	{ rule = { class = "Google-chrome" },
-      properties = { tag = tags[1][4] } },
+	--{ rule = { class = "Google-chrome" },
+    --  properties = { tag = tags[1][4] } },
 	{ rule = { class = "Zathura" },
-      properties = { tag = tags[1][5] } },
+      properties = { tag = tags[1][4] } },
 	-- Start windows as slave
 	{ rule = { },
 	properties = { },
@@ -501,6 +508,9 @@ awful.rules.rules = {
     -- Set Firefox to always map on tags number 2 of screen 1.
     { rule = { class = "Firefox" },
 		properties = { tag = tags[1][2] } },
+	-- When flash in firefox fullscreen change it to floading
+	{ rule = { instance = "plugin-container" },
+        properties = { floating = true } },
 }
 
 for k, v in pairs(floating_apps) do
