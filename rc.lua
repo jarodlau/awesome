@@ -42,7 +42,7 @@ beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 --naughty.config.default_preset.hover_timeout    = nil
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvtc"
+terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -587,7 +587,7 @@ end
 
 run_once("killall ibus-daemon && ibus-daemon -d -x -r")
 run_once("nm-applet")
-run_once("urxvtd -q -o -f")
+--run_once("urxvtd -q -o -f")
 run_once("mpd")
 run_once("mpc random on")
 
