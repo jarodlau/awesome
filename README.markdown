@@ -2,12 +2,12 @@ My Arch Awesome Config
 ======
 Clean
 --
-![arch-2011-10-17](http://imgur.com/LwYu6)
-[http://imgur.com/LwYu6](http://imgur.com/LwYu6)
+![Imgur](http://i.imgur.com/TDDcP)
+[Full Version](http://imgur.com/TDDcP)
 Dirty
 --
-![arch-2011-10-17](http://imgur.com/vd5a1)
-[http://imgur.com/vd5a1](http://imgur.com/vd5a1)
+![Imgur](http://i.imgur.com/vd5a1)
+[Full Version](http://imgur.com/vd5a1)
 
 编辑 /usr/share/xsessions/Awesome.desktop 
 	[Desktop Entry]
