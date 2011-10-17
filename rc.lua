@@ -353,9 +353,11 @@ globalkeys = awful.util.table.join(
     --            client.focus:raise()
     --        end
     --    end),
+	-- screen shot
     awful.key({ "Mod1" }, "Print",
         function ()
 	awful.util.spawn("scrot -bs -e 'mv $f ~/Pictures/Shot/ 2>/dev/null'")
+	--awful.util.spawn("shoot")
 	os.execute("sleep 0.5")
 	naughty.notify({ title="Screenshot", text="The focused window captured" })
         end),
@@ -562,22 +564,24 @@ client.add_signal("unfocus", function(c)
 -- }}}
 
 -- Autorun programs--{{{
---autorun = true
---autorunApps = 
---{
---	-- sleep 60
---	--"sleep 60"
---	-- start up ibusdaemon"
---	--"ibus-daemon -d -x -r -n awesome",
---	-- start up my ssh tunnel"
---	-- start up netmanager
---	--"nm-applet"
---}
---if autorun then
---	for app = 1, #autorunApps do
---		awful.util.spawn(autorunApps[app])
---	end
---end
+autorun = true
+autorunApps = 
+{
+	-- sleep 60
+	--"sleep 60"
+	-- start up ibusdaemon"
+	--"ibus-daemon -d -x -r -n awesome",
+	-- start up my ssh tunnel"
+	-- start up netmanager
+	--"nm-applet"
+	-- 关闭屏幕保护 30分钟无操作关闭屏幕
+	"xset s off dpms 1800 1800 1800"
+}
+if autorun then
+	for app = 1, #autorunApps do
+		awful.util.spawn(autorunApps[app])
+	end
+end
 
 --run_once software
 function run_once(prg)
@@ -590,6 +594,11 @@ run_once("nm-applet")
 --run_once("urxvtd -q -o -f")
 run_once("mpd")
 run_once("mpc random on")
+--不能使用run_once关闭屏保
+--shutdown xscreensaver
+--run_once("xset s off")
+--当 30分钟无操作就关闭显示器
+--run_once("xset dpms 1800 1800 1800")
 
 --}}}
 

@@ -1,5 +1,5 @@
-my awesome config
-
+My Arch Awesome Config
+======
 编辑 /usr/share/xsessions/Awesome.desktop 
 [Desktop Entry]
 Encoding=UTF-8
@@ -26,13 +26,14 @@ exec /usr/bin/awesome
 这样就解决了ibus启动的问题
 
 Thu 06 Oct 2011 03:56:41 AM CST
+======
 把ssh tunnel的自启动脚本从rc.lua拿出来
 放在 .alias中
 
 安装 cairo-ubuntu-xcb 在awesome中使用ubuntu的lcd显示补丁.
 
 Fri 07 Oct 2011 08:52:53 AM CST
-
+======
 修改rc.lua把启动程序放进来,把/usr/share/xsessions/Awesome.desktop恢复原样
 
 程序都是启动一次的
@@ -50,3 +51,10 @@ mymainmenu = awful.menu({ items = { { "Awesome", myawesomemenu, beautiful.awesom
           -- ...
           { "应用程序 (&A)", xdgmenu },
           -- ...
+
+Mon 17 Oct 2011 12:27:11 PM CST
+======
+关闭屏幕保护,30分钟无操作就关闭显示器
+必须放在 autorun 中,不能使用run_once
+
+
