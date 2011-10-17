@@ -47,7 +47,9 @@ Fri 07 Oct 2011 08:52:53 AM CST
 修改rc.lua把启动程序放进来,把/usr/share/xsessions/Awesome.desktop恢复原样
 
 程序都是启动一次的
+
 Sun 16 Oct 2011 06:08:28 PM CST
+======
 archlinux-xdg-menu这么个软件包，遂装了。原来主要是两个 Perl 脚本。其一生成各种格式的菜单配置，其二根据配置文件为指定的窗口管理器生成菜单配置文件。虽然看示例配置文件似乎不支持 Awesome，但xdg_menu --help一看却是支持 Awesome 的。
 
 	xdg_menu --format awesome > ~/.config/awesome/menu.lua
