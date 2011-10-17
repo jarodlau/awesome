@@ -9,7 +9,8 @@ Dirty
 ![Imgur](http://i.imgur.com/vd5a1.png)
 [Full Version](http://imgur.com/vd5a1)
 
-编辑 /usr/share/xsessions/Awesome.desktop 
+编辑 /usr/share/xsessions/Awesome.desktop
+
 	[Desktop Entry]
 	Encoding=UTF-8
 	Name=Awesome
@@ -21,16 +22,16 @@ Dirty
 然后在~/.config/awesome/中建立一个awesome-start.sh文件,并且chmod 755 awesome-start.sh
 如下
 
- #! /bin/bash
+	#! /bin/bash
 
- mpd &
- mpc random on &
- ibus-daemon -d -x -r -n awesome
- #xmodmap $HOME/.Xmodmap
- urxvtd -q -o -f &
- #xscreensaver &
- #kdeinit4
- exec /usr/bin/awesome
+	mpd &
+	mpc random on &
+	ibus-daemon -d -x -r -n awesome
+	#xmodmap $HOME/.Xmodmap
+	urxvtd -q -o -f &
+	#xscreensaver &
+	#kdeinit4
+	exec /usr/bin/awesome
 
 这样就解决了ibus启动的问题
 
