@@ -345,7 +345,7 @@ globalkeys = awful.util.table.join(
 	awful.key({ modkey, }, "p", function () awful.util.spawn("zathura") end),
     --awful.key({ modkey, }, "Up", function () awful.util.spawn("amixer -q sset Master 10%+ unmute") end),
     --awful.key({ modkey, }, "Down", function () awful.util.spawn("amixer -q sset Master 10%- unmute") end),
-    --awful.key({ "Mod1" }, "F2", function () awful.util.spawn("gmrun") end),
+    awful.key({ "Mod1" }, "F2", function () awful.util.spawn("gmrun") end),
     --awful.key({ "Mod1" }, "Tab",
     --    function ()
     --        awful.client.focus.history.previous()
@@ -476,7 +476,7 @@ floating_apps = {
   class = {
     'MPlayer', 'Flashplayer', 'Gnome-mplayer', 'Totem',
     'Eog', 'feh', 'Display', 'gimp',
-    'Screenkey', 'TempTerm',"Download",
+    'Screenkey', 'TempTerm',"Download",'Zenity',
   },
   name = {
     'Downloads', 'Firefox Preferences',
@@ -494,7 +494,9 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons } },
     { rule = { class = "MPlayer" },
-      properties = { floating = true } },
+      properties = { floating = true, ontop = true } },
+    { rule = { class = "Gmrun" },
+      properties = { floating = true, ontop = true } },
     { rule = { class = "Gimp" },
       properties = { floating = true, tag = tags[1][7] } },
 	{ rule = { class = "VirtualBox" },
@@ -512,14 +514,14 @@ awful.rules.rules = {
 		properties = { tag = tags[1][2] } },
 	-- When flash in firefox fullscreen change it to floading
 	{ rule = { instance = "plugin-container" },
-        properties = { floating = true } },
+        properties = { floating = true, ontop = true } },
 }
 
 for k, v in pairs(floating_apps) do
   for _, vv in ipairs(v) do
     table.insert(awful.rules.rules, {
       rule = { [k] = vv },
-      properties = { floating = true },
+      properties = { floating = true, ontop = true },
     })
   end
 end
