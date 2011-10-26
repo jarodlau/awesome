@@ -146,9 +146,9 @@ vicious.register(volwidget, vicious.widgets.volume, "<span foreground='#5789d9'>
 -- }}}
 
 
--- Arch pacman updet--{{{
+-- Arch pacman update--{{{
 pacwidget = widget({type="textbox"})
-vicious.register(pacwidget, vicious.widgets.pkg, "<span color='red'><b> UPDATES: </b></span> $1 ", 60, "Arch")
+vicious.register(pacwidget, vicious.widgets.pkg, "<span color='red'><b> UPDATES: </b></span> $1 ", 600, "Arch")
 --}}}
 
 
@@ -357,7 +357,7 @@ globalkeys = awful.util.table.join(
     awful.key({ "Mod1" }, "Print",
         function ()
 	--awful.util.spawn("scrot -bs -e 'mv $f ~/Pictures/Shot/ 2>/dev/null'")
-	awful.util.spawn("/home/jarodlau/code/shell/shoot")
+	awful.util.spawn("/home/jarodlau/scripts/shoot")
 	--os.execute("sleep 1.5")
 	naughty.notify({ title="Screenshot", text="Select window" })
         end),
@@ -475,7 +475,7 @@ root.keys(globalkeys)
 floating_apps = {
   class = {
     'MPlayer', 'Flashplayer', 'Gnome-mplayer', 'Totem',
-    'Eog', 'feh', 'Display', 'gimp',
+    'Eog', 'feh', 'Display', 'gimp','Dropbox',
     'Screenkey', 'TempTerm',"Download",'Zenity',
   },
   name = {
