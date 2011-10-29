@@ -42,7 +42,7 @@ beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 --naughty.config.default_preset.hover_timeout    = nil
 
 -- This is used later as the default terminal and editor to run.
-terminal = "urxvt"
+terminal = "urxvtc"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 
@@ -76,8 +76,8 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "1one", "2www", "3irc", "4pdf", "5", 6, 7, 8, "9vbox" }, s,
-	layouts[2])
+    tags[s] = awful.tag({ "1one", "2www", "3irc", "4chrome", "5download", "6pdf", "7gimp", 8, "9vbox" }, s,
+    layouts[2])
 end
 -- }}}
 
@@ -91,7 +91,7 @@ myawesomemenu = {
 }
 
 mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-									{ "apps(&A)", xdgmenu},
+                                    { "apps(&A)", xdgmenu},
                                     { "terminal(&T)", terminal }
                                   }
                         })
@@ -136,8 +136,8 @@ vicious.register(mpdwidget, vicious.widgets.mpd,
 -- Widget icon
 -- baticon = widget({ type = "imagebox", name = "baticon" })
 -- baticon.image = image(beautiful.widget_bat)
---batwidget = widget({ type = "textbox" })
---vicious.register(batwidget, vicious.widgets.bat, "<span foreground='orange'>bat: </span><span foreground='green'>$1$2%</span>", 60, "BAT0")
+batwidget = widget({ type = "textbox" })
+vicious.register(batwidget, vicious.widgets.bat, "<span foreground='orange'>bat: </span><span foreground='green'>$1$2%</span>", 60, "BAT0")
 -- }}}
 
 -- {{{ Volume widget
@@ -252,7 +252,7 @@ for s = 1, screen.count() do
 		memwidget,
 		--cpuwidget
 		cpuwidget,
-		--batwidget,
+		batwidget,
 		mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
@@ -337,7 +337,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, }, "g", function () awful.util.spawn("goldendict") end),
     awful.key({ modkey, }, "i", function () awful.util.spawn("firefox") end),
     --awful.key({ modkey, }, "m", function () awful.util.spawn("amixer -q sset Master toggle") end),
-    --awful.key({ modkey, }, "p", function () awful.util.spawn("pidgin") end),
+    awful.key({ modkey, }, "c", function () awful.util.spawn("chromium") end),
     --awful.key({ modkey, }, "s", function () awful.util.spawn("xlock -mode blank -dpmsoff 5 -font -misc-fixed-*-*-*-*-20-*-*-*-*-*-*") end),
     --awful.key({ modkey, }, "t", function () awful.util.spawn("mpc toggle") end),
     awful.key({ modkey, }, "v", function () awful.util.spawn("virtualbox") end),
@@ -499,21 +499,25 @@ awful.rules.rules = {
       properties = { floating = true, ontop = true } },
     { rule = { class = "Gimp" },
       properties = { floating = true, tag = tags[1][7] } },
-	{ rule = { class = "VirtualBox" },
+    { rule = { class = "Deluage" },
+      properties = { tag = tags[1][5] } },
+    { rule = { class = "VirtualBox" },
       properties = { tag = tags[1][9] } },
-	--{ rule = { class = "Google-chrome" },
-    --  properties = { tag = tags[1][4] } },
-	{ rule = { class = "Zathura" },
+    { rule = { class = "Chromium" },
       properties = { tag = tags[1][4] } },
-	-- Start windows as slave
-	{ rule = { },
-	properties = { },
-	callback = awful.client.setslave },
+    { rule = { class = "Google-chrome" },
+      properties = { tag = tags[1][4] } },
+    { rule = { class = "Zathura" },
+      properties = { tag = tags[1][6] } },
+    -- Start windows as slave
+    { rule = { },
+    properties = { },
+    callback = awful.client.setslave },
     -- Set Firefox to always map on tags number 2 of screen 1.
     { rule = { class = "Firefox" },
-		properties = { tag = tags[1][2] } },
-	-- When flash in firefox fullscreen change it to floading
-	{ rule = { instance = "plugin-container" },
+    	properties = { tag = tags[1][2] } },
+    -- When flash in firefox fullscreen change it to floading
+    { rule = { instance = "plugin-container" },
         properties = { floating = true, ontop = true } },
 }
 
@@ -593,7 +597,7 @@ end
 
 run_once("killall ibus-daemon && ibus-daemon -d -x -r")
 run_once("nm-applet")
---run_once("urxvtd -q -o -f")
+run_once("urxvtd -q -o -f")
 run_once("mpd")
 run_once("mpc random on")
 --不能使用run_once关闭屏保
