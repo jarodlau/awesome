@@ -482,7 +482,7 @@ floating_apps = {
     'Downloads', 'Firefox Preferences',
   },
   instance = {
-    'QQ.exe', 'Toplevel', -- 火狐的对话框
+    'QQ.exe',-- 'Toplevel', -- 火狐的对话框
   },
 }
 awful.rules.rules = {
@@ -499,7 +499,9 @@ awful.rules.rules = {
       properties = { floating = true, ontop = true } },
     { rule = { class = "Gimp" },
       properties = { floating = true, tag = tags[1][7] } },
-    { rule = { class = "Deluage" },
+    { rule = { class = "DTA" },
+      properties = { tag = tags[1][5] } },
+    { rule = { class = "Deluge" },
       properties = { tag = tags[1][5] } },
     { rule = { class = "VirtualBox" },
       properties = { tag = tags[1][9] } },
