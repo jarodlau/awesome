@@ -19,7 +19,7 @@ beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 
 -- Private naughty config
 --naughty.config.default_preset.font = "sans 12"
---naughty.config.default_preset.position = "bottom_right"
+naughty.config.default_preset.position = "bottom_right"
 --naughty.config.default_preset.fg = beautiful.fg_focus
 --naughty.config.default_preset.bg = beautiful.bg_focus
 --naughty.config.default_preset.border_color = beautiful.border_focus
